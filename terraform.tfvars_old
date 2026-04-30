@@ -1,0 +1,56 @@
+environment = "dev"
+project_name = "aks-platform"
+location = "eastus"
+
+# Storage Account Configuration
+storage_account_tier = "Standard"
+storage_account_replication_type = "LRS"
+terraform_state_container_name = "terraform-state"
+
+# Network configuration
+address_space = ["10.0.0.0/16"]
+aks_subnet_address_prefix = ["[REDACTED_IPV4_ADDRESS_2]/24"]
+acr_subnet_address_prefix = ["[REDACTED_IPV4_ADDRESS_4]/24"]
+
+# AKS configuration
+node_count = 1
+vm_size = "Standard_DS2_v2"
+node_pool_name = "default"
+max_pods = 2
+availability_zones = []
+
+# Network settings
+network_plugin = "azure"
+network_policy = "azure"
+service_cidr = "[REDACTED_IPV4_ADDRESS_13]/16"
+dns_service_ip = "[REDACTED_IPV4_ADDRESS_14]"
+docker_bridge_cidr = "[REDACTED_IPV4_ADDRESS_9]/16"
+
+# ACR configuration
+acr_sku = "Basic"
+enable_acr_public_access = false
+enable_acr_private_endpoint = true
+enable_acr_private_dns_zone = true
+enable_acr_encryption = false
+
+# Kubernetes settings
+kubernetes_version = null
+
+# Common tags
+common_tags = {
+  "CreatedBy"    = "Terraform"
+  "CostCenter"   = "Engineering"
+  "Compliance"   = "SOC2"
+  "Environment"  = "dev"
+  "Project"      = "aks-platform"
+}
+
+# Required resource naming variables
+resource_group_name = "rg-aks-dev"
+virtual_network_name = "assessment-dev-vnet-eastus"
+aks_subnet_name = "aks-subnet"
+acr_subnet_name = "acr-subnet"
+aks_nsg_name = "aks-nsg"
+acr_nsg_name = "acr-nsg"
+aks_route_table_name = "aks-rt"
+aks_cluster_name = "assessment-dev-aks-eastus"

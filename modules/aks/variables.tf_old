@@ -1,0 +1,214 @@
+variable "aks_cluster_name" {
+  description = "Name of the AKS cluster"
+  type        = string
+}
+
+variable "location" {
+  description = "Azure region for the AKS cluster"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "Name of the resource group"
+  type        = string
+}
+
+variable "dns_prefix" {
+  description = "DNS prefix for the AKS cluster"
+  type        = string
+}
+
+variable "kubernetes_version" {
+  description = "Kubernetes version to use"
+  type        = string
+  default     = null # Will use latest stable version
+}
+
+variable "subnet_id" {
+  description = "Subnet ID for the AKS cluster nodes"
+  type        = string
+}
+
+variable "node_pool_name" {
+  description = "Name of the default node pool"
+  type        = string
+  default     = "default"
+}
+
+variable "node_count" {
+  description = "Initial number of nodes in the default pool"
+  type        = number
+  default     = 1
+  validation {
+    condition     = var.node_count >= 1 && var.node_count <= 100
+    error_message = "Node count must be between 1 and 100."
+  }
+}
+
+variable "vm_size" {
+  description = "VM size for the nodes"
+  type        = string
+  default     = "Standard_B2s"
+}
+
+variable "os_disk_size_gb" {
+  description = "OS disk size in GB for the nodes"
+  type        = number
+  default     = 100
+}
+
+variable "max_pods" {
+  description = "Maximum number of pods per node"
+  type        = number
+  default     = 110
+}
+
+variable "availability_zones" {
+  description = "Availability zones for the node pool"
+  type        = list(string)
+  default     = []
+}
+
+variable "network_plugin" {
+  description = "Network plugin for AKS (azure or kubenet)"
+  type        = string
+  default     = "azure"
+  validation {
+    condition     = contains(["azure", "kubenet"], var.network_plugin)
+    error_message = "Network plugin must be either 'azure' or 'kubenet'."
+  }
+}
+
+variable "network_policy" {
+  description = "Network policy for AKS (azure or calico)"
+  type        = string
+  default     = "azure"
+  validation {
+    condition     = contains(["azure", "calico"], var.network_policy)
+    error_message = "Network policy must be either 'azure' or 'calico'."
+  }
+}
+
+variable "service_cidr" {
+  description = "CIDR range for Kubernetes services"
+  type        = string
+  default     = "172.16.0.0/16"
+}
+
+variable "dns_service_ip" {
+  description = "IP address for Kubernetes DNS service"
+  type        = string
+  default     = "10.0.0.10"
+}
+
+variable "docker_bridge_cidr" {
+  description = "CIDR range for Docker bridge"
+  type        = string
+  default     = "172.17.0.1/16"
+}
+
+variable "load_balancer_sku" {
+  description = "SKU for the load balancer (Standard or Basic)"
+  type        = string
+  default     = "Standard"
+  validation {
+    condition     = contains(["Standard", "Basic"], var.load_balancer_sku)
+    error_message = "Load balancer SKU must be either 'Standard' or 'Basic'."
+  }
+}
+
+variable "outbound_type" {
+  description = "Outbound type for the cluster (loadBalancer or userDefinedRouting)"
+  type        = string
+  default     = "loadBalancer"
+}
+
+variable "admin_group_object_ids" {
+  description = "AAD group IDs for cluster admin"
+  type        = list(string)
+  default     = []
+}
+
+variable "authorized_ip_ranges" {
+  description = "Authorized IP ranges for API server access"
+  type        = list(string)
+  default     = []
+}
+
+variable "enable_azure_policy" {
+  description = "Enable Azure Policy addon"
+  type        = bool
+  default     = true
+}
+
+variable "log_analytics_workspace_id" {
+  description = "Log Analytics workspace ID for monitoring"
+  type        = string
+  default     = null
+}
+
+variable "kubelet_identity_name" {
+  description = "Name of the kubelet managed identity"
+  type        = string
+  default     = "aks-kubelet-identity"
+}
+
+variable "create_additional_node_pool" {
+  description = "Create additional node pool"
+  type        = bool
+  default     = false
+}
+
+variable "additional_node_pool_name" {
+  description = "Name of the additional node pool"
+  type        = string
+  default     = "additional"
+}
+
+variable "additional_node_count" {
+  description = "Number of nodes in the additional pool"
+  type        = number
+  default     = 1
+}
+
+variable "additional_vm_size" {
+  description = "VM size for the additional node pool"
+  type        = string
+  default     = "Standard_B2s"
+}
+
+variable "additional_node_labels" {
+  description = "Labels for the additional node pool"
+  type        = map(string)
+  default     = {}
+}
+
+variable "additional_node_taints" {
+  description = "Taints for the additional node pool"
+  type        = list(map(string))
+  default     = []
+}
+
+variable "enable_system_pool" {
+  description = "Enable system node pool"
+  type        = bool
+  default     = false
+}
+
+variable "system_node_count" {
+  description = "Number of nodes in system pool"
+  type        = number
+  default     = 1
+}
+
+variable "system_vm_size" {
+  description = "VM size for system node pool"
+  type        = string
+  default     = "Standard_B2s"
+}
+
+variable "common_tags" {
+  description = "Common tags to apply to all resources"
+  type        = map(string)
+  default     = {}
+}
