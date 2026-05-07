@@ -46,17 +46,17 @@ terraform destroy
 This command is used to delete all the infrastructure managed by Terraform.
 =====================================================================================
 Q1: Why did you use Terraform?
- “Terraform provides declarative infrastructure, version control, and reproducibility. It ensures the same environment can be recreated anytime without manual errors.”
+Terraform provides declarative infrastructure, version control, and reproducibility. It ensures the same environment can be recreated anytime without manual errors.
 Q2: What is Terraform State?
-“Terraform state is a file that maps real infrastructure to configuration. It helps Terraform track what is already created and what needs to change.”
+Terraform state is a file that maps real infrastructure to configuration. It helps Terraform track what is already created and what needs to change.
 Q3: Why Remote State? “Remote state allows multiple team members to collaborate safely and prevents conflicts using state locking.”
 Q4: What is a Module?
- “A module is a reusable Terraform component that encapsulates resources. It helps maintain clean, scalable, and DRY code.”
+A module is a reusable Terraform component that encapsulates resources. It helps maintain clean, scalable, and DRY code.
 Q5: How did you handle dependencies?
-“Terraform automatically handles dependencies using resource references. For example, AKS depends on subnet ID from network module.”
-Q6: How does AKS pull images from ACR?  “Using role assignment (AcrPull role), I allowed AKS to securely access ACR without exposing credentials.”
+Terraform automatically handles dependencies using resource references. For example, AKS depends on subnet ID from network module.
+Q6: How does AKS pull images from ACR?  “Using role assignment (AcrPull role), I allowed AKS to securely access ACR without exposing credentials.
 Q7: What happens if state file is deleted?
- “Terraform loses track of resources, which may lead to duplication or drift. That’s why remote backup and versioning are important.”
+Terraform loses track of resources, which may lead to duplication or drift. That’s why remote backup and versioning are important.
  Q8: Difference between implicit and explicit dependency?
 Implicit → via reference (subnet_id = module.network.subnet_id) | Explicit → depends_on
 Q9: How can you make this production ready?
@@ -64,8 +64,6 @@ Adding private AKS cluster
 Using managed identities
 Enabling monitoring (Azure Monitor)
 Implementing CI/CD pipeline
-Adding autoscaling”
-Q10: What challenges did you face?
- “Handling module dependencies and remote backend configuration was challenging initially, especially ensuring correct resource references.”
+Adding autoscaling
 
 
